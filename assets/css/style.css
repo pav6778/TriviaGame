@@ -25,7 +25,7 @@ h1{
     background: url(../images/giphy.gif);
     background-size: 1px;
 }
-#timeLeft, #question{
+#timeLeft, #question, #answers{
     color: white;
     height: 50px;
 }
