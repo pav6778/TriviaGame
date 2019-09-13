@@ -39,8 +39,10 @@ let restart = function() {
   incorrect = 0,
   unanswered = 0,
   num = 0;
+  answers = [];
   let restart = $("<button>")
   restart.attr("id", "restart")
+  restart.addClass("col-3")
   $("#answers").append(restart);
   restart.text("Restart")
   $("#restart").click(function(){
@@ -49,13 +51,14 @@ let restart = function() {
     $("#question").text("")
     $("#answers").text("")
     let button = $("<button>")
-    button.addClass("col-2")
+    button.addClass("col-3")
     button.attr("id", "start")
     button.text("start")
     $(".row").append(button);
 
 
     $("#start").on("click", function() {
+      clearInterval(counter)
       let gamePlay = function() {
         count = 29;
         let timeLeft = $("<div>");
