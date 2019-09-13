@@ -1,21 +1,17 @@
 body {
     background: url(../images/luis-cavaco-02-mockup-trivia-planet-b.jpg);
     font-size: 1.2em;
-
 }   
-
-
 h1{
     text-align: center;
-
     padding-top: 40px;
     font-size: 3em;
     font-family: 'Modak', cursive;
-    text-shadow: 0 1px 0 red, 0 2px 0 red, 0 3px 0 red, 0 4px 0 red, 0 5px 0 red, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(78, 79, 56, 0.81), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15), 2px 2px 20px rgba(146,255,246,0.93);
+    text-shadow: 0 1px 0 rgb(255, 111, 0), 0 2px 0 rgb(255, 111, 0), 0 3px 0 rgb(255, 111, 0), 0 4px 0 red, 0 5px 0 red, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(78, 79, 56, 0.81), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15), 2px 2px 20px rgba(146,255,246,0.93);
 }
 #start, #restart {
     height: 60px;
-    color: orange;
+    color: rgb(255, 111, 0);
     margin: 0 auto 0 auto;
     font-size: 1.3em;
     font-family: 'Modak', cursive;
@@ -25,16 +21,26 @@ h1{
     background: url(../images/giphy.gif);
     background-size: 1px;
 }
-#timeLeft, #question, #answers{
-    color: white;
+ #question, #answers{
+    color: rgb(255, 214, 142);
     height: 50px;
 }
 .answers {
     display: block;
-    margin: 0 auto 0 auto;
+    margin: 0 auto 2px auto;
     padding: 0;
-    border-bottom: orange 2px solid;
+    border-top: rgb(126, 55, 0) 3px solid;
+    border-bottom: rgb(41, 18, 0) 3px solid;
     outline: none !important;
-    background-color: rgb(0, 155, 203) ;
-    color: white;
+    background-color: rgb(0, 46, 60) ;
+    color: rgb(254, 187, 88);
+    border-radius:5%;
+}
+#timeLeft {
+    height: 50px;
+    color:rgb(255, 111, 0)
+}
+img{
+    border-top: rgb(126, 55, 0) 1px solid;
+    border-bottom: rgb(41, 18, 0) 1px solid;
 }

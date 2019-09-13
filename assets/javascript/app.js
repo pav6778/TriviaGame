@@ -1,3 +1,4 @@
+$(document).ready(function(){
 let trivia = {
     q1: {
       q: "Who invented the telephone?",
@@ -21,7 +22,7 @@ let trivia = {
     },
     q5: {
       q: "What does the roman numeral C represent?",
-      a: ["Commander", "Communist", "100", "Centurion"],
+      a: ["1", "10", "100", "200"],
       img: ["assets/images/100.jpeg"]
     }
   },
@@ -33,53 +34,152 @@ let trivia = {
   answers = [];
 let answervalue, imgvalue;
 let num = 0;
-let el = function(){
-  $("#question").text("All done, heres how you did!")
-  $("#answers").html(
-        " </p>" +
-        '<p>Correct Answers: '+correct+'</p>'+'<p>Incorrect Answers: '+incorrect+'</p>'+'<p>Unanswered: '+unanswered+'</p>'
-    );
-}
-let reset = function() {
-  clearInterval(counter)
-  setTimeout(() => {
-    if (num >= 5 ) {
-      setTimeout(() => {
-        
-        el()
-      }, 1000);
-    }else{
-    
-    count = 30;
-    counter = setInterval(function() {
-      if (count >= 0) {
-        $("#timeLeft").text("Time Remaining: " + count);
-      }
-      if (count === 0) {
-        //display an image
-        unanswered++;
-        
-        $("#question").text("Out of time!");
-        $("#answers").html(
-          '<img id="img" width="300px" src="' + imgvalue + '">'
-        );
-        num++;
-        if(num < 5){
-            reset();
-          }else{
-        el()
+let restart = function() {
+  correct = 0,
+  incorrect = 0,
+  unanswered = 0,
+  num = 0;
+  let restart = $("<button>")
+  restart.attr("id", "restart")
+  $("#answers").append(restart);
+  restart.text("Restart")
+  $("#restart").click(function(){
+    restart.remove()
+    $("#timeLeft").text("")
+    $("#question").text("")
+    $("#answers").text("")
+    let button = $("<button>")
+    button.addClass("col-2")
+    button.attr("id", "start")
+    button.text("start")
+    $(".row").append(button);
+
+
+    $("#start").on("click", function() {
+      let gamePlay = function() {
+        count = 29;
+        let timeLeft = $("<div>");
+        timeLeft.addClass("col-12 mt-5 text-center question");
+        timeLeft.attr("id", "timeLeft");
+        $("#timeLeft").append(timeLeft);
+        $("#start").remove();
+        $("#timeLeft").text("Time Remaining: 30");
+        let question = $("<div>");
+        question.attr("id", "question");
+        $("#question").append(question);
+        $("#question").text(triviaq[num]);
+        setvalues();
+        for (let i = 0; i < answers.length; i++) {
+          let answerDiv = $("<button>");
+          answerDiv.addClass("answers col-3 text-center");
+          answerDiv.attr("id", answers[i]);
+          answerDiv.attr("value", answers[i]);
+          $("#answers").append(answerDiv);
+          $("#" + answers[i]).text(answers[i]);
+        }
+      };
+      gamePlay();
+      answerbtn();
+      counter = setInterval(function() {
+        if (count >= 0) {
+          $("#timeLeft").text("Time Remaining: " + count);
+        }
+        if (count === 0) {
+          unanswered++;
+          clearInterval(counter);
+          $("#question").text("Out of time!");
+          $("#answers").html(
+            '<p id="ptag">The correct answer is:' +
+              " " +
+              answervalue +
+              " </p>" +
+              '<img id="img" width="300px" src="' +
+              imgvalue +
+              '">'
+          );
+          if (num === 5) {
+            $("#question").text("Out of time!");
+            $("#answers").html(
+              '<p id="ptag">The correct answer is:' +
+                " " +
+                answervalue +
+                " </p>" +
+                '<img id="img" width="300px" src="' +
+                imgvalue +
+                '">'
+            );
           }
-      }
-      count--;
-    }, 1000);}
+          num++;
+          if (num < 5) {
+            reset();
+          } else {
+            el();
+          }
+        }
+        count--;
+      }, 1000);
+    });
+
+  })
+}
+let el = function() {
+  $("#question").text("All done, heres how you did!");
+  $("#answers").html(
+    " </p>" +
+      "<p>Correct Answers: " +
+      correct +
+      "</p>" +
+      "<p>Incorrect Answers: " +
+      incorrect +
+      "</p>" +
+      "<p>Unanswered: " +
+      unanswered +
+      "</p>"
+  );
+    restart()
+};
+let reset = function() {
+  clearInterval(counter);
+  setTimeout(() => {
+    if (num >= 5) {
+      setTimeout(() => {
+        el();
+      }, 1000);
+    } else {
+      count = 30;
+      counter = setInterval(function() {
+        if (count >= 0) {
+          $("#timeLeft").text("Time Remaining: " + count);
+        }
+        if (count === 0) {
+          //display an image
+          unanswered++;
+          $("#question").text("Out of time!");
+          $("#answers").html('<p id="ptag">The correct answer is:' +
+          " " +
+          answervalue +
+          " </p>" +
+          '<img id="img" width="300px" src="' +
+          imgvalue +
+          '">'
+          );
+          num++;
+          if (num < 5) {
+            reset();
+          } else {
+            el();
+          }
+        }
+        count--;
+      }, 1000);
+    }
   }, 2000);
   setTimeout(() => {
     $("#ptag").text("");
     answers = [];
     $("#img").remove();
     $("#question").text(triviaq[num]);
- setvalues()
-
+    setvalues();
     for (let i = 0; i < answers.length; i++) {
       answerDiv = $("<button>");
       answerDiv.addClass("answers col-3 text-center");
@@ -88,52 +188,49 @@ let reset = function() {
       $("#answers").append(answerDiv);
       $("#" + answers[i]).text(answers[i]);
     }
-  
     answerbtn();
   }, 3000);
 };
-let setvalues = function(){
-  
-    if (num === 0) {
-        answervalue = "Bell";
-        imgvalue = trivia.q1.img;
-        for (var k = 0; k < 4; k++) {
-          answers.push(trivia.q1.a[k]);
-        }
-      }
-      if (num === 1) {
-        answervalue = "100C";
-        imgvalue = trivia.q2.img;
-        for (var k = 0; k < 4; k++) {
-          answers.push(trivia.q2.a[k]);
-        }
-      }
-      if (num === 2) {
-        answervalue = "Fleming";
-        imgvalue = trivia.q3.img;
-        for (var k = 0; k < 4; k++) {
-          answers.push(trivia.q3.a[k]);
-        }
-      }
-      if (num === 3) {
-        answervalue = "Shakespeare";
-        imgvalue = trivia.q4.img;
-        for (var k = 0; k < 4; k++) {
-          answers.push(trivia.q4.a[k]);
-        }
-      }
-      if (num === 4) {
-          answervalue = "100";
-          imgvalue = trivia.q5.img;
-          for (var k = 0; k < 4; k++) {
-            answers.push(trivia.q5.a[k]);
-          }
-        }
-}
-
+let setvalues = function() {
+  if (num === 0) {
+    answervalue = "Bell";
+    imgvalue = trivia.q1.img;
+    for (var k = 0; k < 4; k++) {
+      answers.push(trivia.q1.a[k]);
+    }
+  }
+  if (num === 1) {
+    answervalue = "100C";
+    imgvalue = trivia.q2.img;
+    for (var k = 0; k < 4; k++) {
+      answers.push(trivia.q2.a[k]);
+    }
+  }
+  if (num === 2) {
+    answervalue = "Fleming";
+    imgvalue = trivia.q3.img;
+    for (var k = 0; k < 4; k++) {
+      answers.push(trivia.q3.a[k]);
+    }
+  }
+  if (num === 3) {
+    answervalue = "Shakespeare";
+    imgvalue = trivia.q4.img;
+    for (var k = 0; k < 4; k++) {
+      answers.push(trivia.q4.a[k]);
+    }
+  }
+  if (num === 4) {
+    answervalue = "100";
+    imgvalue = trivia.q5.img;
+    for (var k = 0; k < 4; k++) {
+      answers.push(trivia.q5.a[k]);
+    }
+  }
+};
 $("#start").on("click", function() {
   let gamePlay = function() {
-    count = 30;
+    count = 29;
     let timeLeft = $("<div>");
     timeLeft.addClass("col-12 mt-5 text-center question");
     timeLeft.attr("id", "timeLeft");
@@ -144,8 +241,7 @@ $("#start").on("click", function() {
     question.attr("id", "question");
     $("#question").append(question);
     $("#question").text(triviaq[num]);
-
-  setvalues()
+    setvalues();
     for (let i = 0; i < answers.length; i++) {
       let answerDiv = $("<button>");
       answerDiv.addClass("answers col-3 text-center");
@@ -162,23 +258,36 @@ $("#start").on("click", function() {
       $("#timeLeft").text("Time Remaining: " + count);
     }
     if (count === 0) {
-      //display an image
+      unanswered++;
       clearInterval(counter);
-      
       $("#question").text("Out of time!");
-      $("#answers").html('<img id="img" width="300px" src="' + imgvalue + '">');
+      $("#answers").html(
+        '<p id="ptag">The correct answer is:' +
+          " " +
+          answervalue +
+          " </p>" +
+          '<img id="img" width="300px" src="' +
+          imgvalue +
+          '">'
+      );
       if (num === 5) {
         $("#question").text("Out of time!");
         $("#answers").html(
-          '<img id="img" width="300px" src="' + imgvalue + '">'
+          '<p id="ptag">The correct answer is:' +
+            " " +
+            answervalue +
+            " </p>" +
+            '<img id="img" width="300px" src="' +
+            imgvalue +
+            '">'
         );
       }
       num++;
-      if(num < 5){
+      if (num < 5) {
         reset();
-      }else{
-       el()
-    }
+      } else {
+        el();
+      }
     }
     count--;
   }, 1000);
@@ -187,8 +296,7 @@ let answerbtn = function() {
   $(".answers").on("click", function() {
     let val = this.value;
     if (val === answervalue) {
-        correct++
-        
+      correct++;
       clearInterval(counter);
       $("#question").text("Correct!");
       $("#answers").html(
@@ -201,16 +309,15 @@ let answerbtn = function() {
           '">'
       );
       num++;
-      if(num <= 5){
+      if (num <= 5) {
         reset();
-      }else{
-        el()
-          }
-      
+      } else {
+        el();
+      }
     } else {
-        incorrect++
+      incorrect++;
       clearInterval(counter);
-      $("#answers").text("")
+      $("#answers").text("");
       $("#question").text("Nope!");
       $("#answers").html(
         '<p id="ptag">The correct answer is:' +
@@ -222,14 +329,12 @@ let answerbtn = function() {
           '">'
       );
       num++;
-      if(num < 6 ){
-      reset();
-    }else{
-     el()
-    //    $("#timeLeft").text("Correct Answers: "+correct);
-    //    $("#question").text("Incorrect Answers: "+incorrect)
-    //    $("#answers").text("Unaswered"+unanswered)
-    }
+      if (num < 6) {
+        reset();
+      } else {
+        el();
+      }
     }
   });
 };
+});
