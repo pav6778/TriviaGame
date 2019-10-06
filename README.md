@@ -9,5 +9,5 @@ After all 5 questions were answered, you will see results of the game.
 
 Thanks for playing!
 
-#Published at: 
+# Published at: 
 https://pav6778.github.io/TriviaGame/
