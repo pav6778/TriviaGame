@@ -8,3 +8,6 @@ You are given 30 seconds to answer every question.
 After all 5 questions were answered, you will see results of the game.
 
 Thanks for playing!
+
+# Published at: 
+https://pav6778.github.io/TriviaGame/
