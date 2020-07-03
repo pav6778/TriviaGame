@@ -1,5 +1,6 @@
 body {
     background: url(../images/luis-cavaco-02-mockup-trivia-planet-b.jpg);
+    background-size: cover;
     font-size: 1.2em;
 }   
 h1{
@@ -16,10 +17,10 @@ h1{
     font-size: 1.3em;
     font-family: 'Modak', cursive;
     font-weight: 100;
-    border-radius: 5%;
     outline: none; 
-    background: url(../images/giphy.gif);
-    background-size: 1px;
+    background: #2BC0E4;  /* fallback for old browsers */
+background: linear-gradient(to bottom, #EAECC6, #2BC0E4);
+
 }
  #question, #answers{
     color: rgb(255, 214, 142);
@@ -28,13 +29,14 @@ h1{
 .answers {
     display: block;
     margin: 0 auto 2px auto;
-    padding: 0;
+    padding: 10px;
     border-top: rgb(126, 55, 0) 3px solid;
     border-bottom: rgb(41, 18, 0) 3px solid;
     outline: none !important;
-    background-color: rgb(0, 46, 60) ;
-    color: rgb(254, 187, 88);
+    background: linear-gradient(to bottom, #bbd2c5, #536976);
+    color: rgb(36, 24, 5);
     border-radius:5%;
+    font-weight: bolder;
 }
 #timeLeft {
     height: 50px;
